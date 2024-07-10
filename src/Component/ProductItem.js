@@ -42,15 +42,20 @@ export default function ProductItem({ item }) {
     dispatch(addproducts([...products]));
   }
 
-  function handleDeleteProduct(item) {
+  async function handleDeleteProduct(item) {
     let url = `https://my-json-server.typicode.com/yogeshjaguri/data/products/${item.id}`;
-    customFetch(url, { method: "DELETE" });
-
-    let index = products.indexOf(item);
-    products.splice(index, 1);
-    dispatch(addproducts([...products]));
-    showToastMessage("Item deleted", "warning");
+    
+    try {
+      await customFetch(url, { method: "DELETE" });
+  
+      let updatedProducts = products.filter(product => product.id !== item.id);
+      dispatch(addproducts(updatedProducts));
+      showToastMessage("Item deleted", "warning");
+    } catch (error) {
+      showToastMessage("Failed to delete item", "danger");
+    }
   }
+  
 
   function handleCancel(item) {
     item.edit = true;
