@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addproducts } from "../actions";
+import { Button } from "react-bootstrap";
 
 export default function Sort() {
   const [flag, setflag] = useState(false);
@@ -24,9 +25,9 @@ export default function Sort() {
         className="bg-white p-2 rounded-5  d-flex justify-content-around"
         style={style}
       >
-        <span className="fw-bold " onClick={() => handleSort()}>
+        <Button className="fw-bold " onClick={() => handleSort()}>
           Sort by Price
-        </span>
+        </Button>
         {flag && (
           <span>
             <img
